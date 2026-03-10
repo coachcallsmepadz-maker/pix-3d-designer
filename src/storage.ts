@@ -1,5 +1,5 @@
 import localforage from 'localforage';
-import { TinConfig } from './types';
+import { type TinConfig } from './types';
 
 export interface SavedDesign {
     id: string;

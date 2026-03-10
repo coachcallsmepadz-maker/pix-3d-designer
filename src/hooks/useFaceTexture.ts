@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as THREE from 'three';
-import { FaceConfig } from '../types';
+import { type FaceConfig } from '../types';
 
 export const FaceDimensions = {
     front: { w: 2.4, h: 4.8 },

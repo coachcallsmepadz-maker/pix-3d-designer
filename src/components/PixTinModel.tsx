@@ -1,6 +1,9 @@
 import { useRef } from 'react';
 import * as THREE from 'three';
-import { RoundedBox } from '@react-three/drei';
+import { extend } from '@react-three/fiber';
+import { RoundedBoxGeometry } from 'three-stdlib';
+
+extend({ RoundedBoxGeometry });
 
 interface PixTinModelProps {
     textures: {
@@ -22,31 +25,37 @@ export default function PixTinModel({ textures, hingesColor, lidLineColor }: Pix
     const height = 4.8;
     const depth = 1.2;
 
-    // We set base color to white, because the canvas textures have the base color baked in.
-    const materials = [
-        new THREE.MeshStandardMaterial({ color: '#ffffff', map: textures.right, roughness: 0.4 }),
-        new THREE.MeshStandardMaterial({ color: '#ffffff', map: textures.left, roughness: 0.4 }),
-        new THREE.MeshStandardMaterial({ color: '#ffffff', map: textures.top, roughness: 0.4 }),
-        new THREE.MeshStandardMaterial({ color: '#ffffff', map: textures.bottom, roughness: 0.4 }),
-        new THREE.MeshStandardMaterial({ color: '#ffffff', map: textures.front, roughness: 0.4 }),
-        new THREE.MeshStandardMaterial({ color: '#ffffff', map: textures.back, roughness: 0.4 }),
+    const maps = [
+        textures.right,
+        textures.left,
+        textures.top,
+        textures.bottom,
+        textures.front,
+        textures.back,
     ];
 
-    materials.forEach(m => {
-        if (m.map) m.map.colorSpace = THREE.SRGBColorSpace;
+    maps.forEach(m => {
+        if (m) m.colorSpace = THREE.SRGBColorSpace;
     });
 
     return (
         <group ref={groupRef} dispose={null}>
             {/* Main Body */}
-            <RoundedBox args={[width, height, depth]} radius={0.15} smoothness={4} castShadow receiveShadow>
-                {materials[0] && <primitive object={materials[0]} attach="material-0" />}
-                {materials[1] && <primitive object={materials[1]} attach="material-1" />}
-                {materials[2] && <primitive object={materials[2]} attach="material-2" />}
-                {materials[3] && <primitive object={materials[3]} attach="material-3" />}
-                {materials[4] && <primitive object={materials[4]} attach="material-4" />}
-                {materials[5] && <primitive object={materials[5]} attach="material-5" />}
-            </RoundedBox>
+            <mesh castShadow receiveShadow>
+                {/* Notice the lowercase roundedBoxGeometry, thanks to extend() */}
+                {/* args: [width, height, depth, segments, radius] */}
+                {/* @ts-ignore */}
+                <roundedBoxGeometry args={[width, height, depth, 4, 0.15]} />
+                {maps.map((map, i) => (
+                    <meshStandardMaterial
+                        key={i}
+                        attach={`material-${i}`}
+                        color="#ffffff"
+                        map={map}
+                        roughness={0.4}
+                    />
+                ))}
+            </mesh>
 
             {/* Visual Lid Separation (A thin dark line) */}
             <mesh position={[0, height / 2 - 0.8, 0]}>

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { FaceConfig } from '../types';
+import { type FaceConfig } from '../types';
 import { Trash2 } from 'lucide-react';
 
 interface Props {
