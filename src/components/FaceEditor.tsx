@@ -7,9 +7,10 @@ interface Props {
     config: FaceConfig;
     onChange: (newConfig: FaceConfig) => void;
     aspectRatio: number; // width / height
+    onApplyToAll?: (color: string) => void;
 }
 
-export default function FaceEditor({ face, config, onChange, aspectRatio }: Props) {
+export default function FaceEditor({ face, config, onChange, aspectRatio, onApplyToAll }: Props) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [draggingId, setDraggingId] = useState<string | null>(null);
 
@@ -42,13 +43,29 @@ export default function FaceEditor({ face, config, onChange, aspectRatio }: Prop
         <div className="flex flex-col space-y-4">
             <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold text-neutral-300 capitalize">{face} Color</span>
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
+                    <input
+                        type="text"
+                        value={config.color}
+                        onChange={e => onChange({ ...config, color: e.target.value })}
+                        className="w-20 px-2 py-1 text-xs bg-neutral-900 border border-neutral-700 rounded text-neutral-300 focus:outline-none focus:border-teal-500"
+                        placeholder="#HEX"
+                    />
                     <input
                         type="color"
                         value={config.color}
                         onChange={e => onChange({ ...config, color: e.target.value })}
                         className="w-8 h-8 rounded cursor-pointer border-0 p-0 bg-transparent"
                     />
+                    {onApplyToAll && (
+                        <button
+                            onClick={() => onApplyToAll(config.color)}
+                            className="px-2 py-1 text-xs font-medium bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded text-neutral-300 transition-colors"
+                            title="Apply this color to all sides"
+                        >
+                            Apply All
+                        </button>
+                    )}
                 </div>
             </div>
 

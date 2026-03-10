@@ -236,8 +236,8 @@ function App() {
                   key={face}
                   onClick={() => setSelectedTab(face)}
                   className={`px-3 py-2 text-xs md:text-sm font-medium rounded-md transition-all border ${selectedTab === face
-                      ? 'bg-neutral-800 border-teal-500 text-white'
-                      : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
+                    ? 'bg-neutral-800 border-teal-500 text-white'
+                    : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
                     }`}
                 >
                   {face.charAt(0).toUpperCase() + face.slice(1)}
@@ -246,8 +246,8 @@ function App() {
               <button
                 onClick={() => setSelectedTab('hardware')}
                 className={`col-span-3 px-3 py-2 text-xs md:text-sm font-medium rounded-md transition-all border flex items-center justify-center gap-1 ${selectedTab === 'hardware'
-                    ? 'bg-neutral-800 border-emerald-500 text-white'
-                    : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
+                  ? 'bg-neutral-800 border-emerald-500 text-white'
+                  : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
                   }`}
               >
                 <Settings2 size={14} />
@@ -265,44 +265,83 @@ function App() {
 
                 <div className="flex items-center justify-between bg-neutral-900 p-4 rounded-lg border border-neutral-800">
                   <span className="text-sm font-medium text-neutral-300">Base Tin Color</span>
-                  <input
-                    type="color"
-                    value={config.baseColor}
-                    onChange={e => {
-                      const newColor = e.target.value;
-                      setConfig(prev => ({
-                        ...prev,
-                        baseColor: newColor,
-                        front: { ...prev.front, color: newColor },
-                        back: { ...prev.back, color: newColor },
-                        left: { ...prev.left, color: newColor },
-                        right: { ...prev.right, color: newColor },
-                        top: { ...prev.top, color: newColor },
-                        bottom: { ...prev.bottom, color: newColor },
-                      }));
-                    }}
-                    className="w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent"
-                  />
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={config.baseColor}
+                      onChange={e => {
+                        const newColor = e.target.value;
+                        setConfig(prev => ({
+                          ...prev,
+                          baseColor: newColor,
+                          front: { ...prev.front, color: newColor },
+                          back: { ...prev.back, color: newColor },
+                          left: { ...prev.left, color: newColor },
+                          right: { ...prev.right, color: newColor },
+                          top: { ...prev.top, color: newColor },
+                          bottom: { ...prev.bottom, color: newColor },
+                        }));
+                      }}
+                      className="w-20 px-2 py-1 text-sm bg-neutral-950 border border-neutral-700 rounded text-neutral-300 focus:outline-none focus:border-teal-500"
+                      placeholder="#HEX"
+                    />
+                    <input
+                      type="color"
+                      value={config.baseColor}
+                      onChange={e => {
+                        const newColor = e.target.value;
+                        setConfig(prev => ({
+                          ...prev,
+                          baseColor: newColor,
+                          front: { ...prev.front, color: newColor },
+                          back: { ...prev.back, color: newColor },
+                          left: { ...prev.left, color: newColor },
+                          right: { ...prev.right, color: newColor },
+                          top: { ...prev.top, color: newColor },
+                          bottom: { ...prev.bottom, color: newColor },
+                        }));
+                      }}
+                      className="w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between bg-neutral-900 p-4 rounded-lg border border-neutral-800">
                   <span className="text-sm font-medium text-neutral-300">Hinges Color</span>
-                  <input
-                    type="color"
-                    value={config.hinges}
-                    onChange={e => setConfig(prev => ({ ...prev, hinges: e.target.value }))}
-                    className="w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent"
-                  />
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={config.hinges}
+                      onChange={e => setConfig(prev => ({ ...prev, hinges: e.target.value }))}
+                      className="w-20 px-2 py-1 text-sm bg-neutral-950 border border-neutral-700 rounded text-neutral-300 focus:outline-none focus:border-teal-500"
+                      placeholder="#HEX"
+                    />
+                    <input
+                      type="color"
+                      value={config.hinges}
+                      onChange={e => setConfig(prev => ({ ...prev, hinges: e.target.value }))}
+                      className="w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between bg-neutral-900 p-4 rounded-lg border border-neutral-800">
                   <span className="text-sm font-medium text-neutral-300">Lid Separator Line Color</span>
-                  <input
-                    type="color"
-                    value={config.lidLine}
-                    onChange={e => setConfig(prev => ({ ...prev, lidLine: e.target.value }))}
-                    className="w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent"
-                  />
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={config.lidLine}
+                      onChange={e => setConfig(prev => ({ ...prev, lidLine: e.target.value }))}
+                      className="w-20 px-2 py-1 text-sm bg-neutral-950 border border-neutral-700 rounded text-neutral-300 focus:outline-none focus:border-teal-500"
+                      placeholder="#HEX"
+                    />
+                    <input
+                      type="color"
+                      value={config.lidLine}
+                      onChange={e => setConfig(prev => ({ ...prev, lidLine: e.target.value }))}
+                      className="w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent"
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
@@ -328,6 +367,17 @@ function App() {
                     config={config[selectedTab as keyof TinConfig] as FaceConfig}
                     onChange={(newConfig) => {
                       setConfig(prev => ({ ...prev, [selectedTab as string]: newConfig }));
+                    }}
+                    onApplyToAll={(color: string) => {
+                      setConfig(prev => ({
+                        ...prev,
+                        front: { ...prev.front, color },
+                        back: { ...prev.back, color },
+                        left: { ...prev.left, color },
+                        right: { ...prev.right, color },
+                        top: { ...prev.top, color },
+                        bottom: { ...prev.bottom, color },
+                      }));
                     }}
                     aspectRatio={FaceDimensions[selectedTab as keyof typeof FaceDimensions].w / FaceDimensions[selectedTab as keyof typeof FaceDimensions].h}
                   />
