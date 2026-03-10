@@ -40,9 +40,12 @@ export default function PixTinModel({ textures, hingesColor, lidLineColor }: Pix
         <group ref={groupRef} dispose={null}>
             {/* Main Body */}
             <RoundedBox args={[width, height, depth]} radius={0.15} smoothness={4} castShadow receiveShadow>
-                {materials.map((mat, i) => (
-                    <primitive key={i} object={mat} attach={`material-${i}`} />
-                ))}
+                {materials[0] && <primitive object={materials[0]} attach="material-0" />}
+                {materials[1] && <primitive object={materials[1]} attach="material-1" />}
+                {materials[2] && <primitive object={materials[2]} attach="material-2" />}
+                {materials[3] && <primitive object={materials[3]} attach="material-3" />}
+                {materials[4] && <primitive object={materials[4]} attach="material-4" />}
+                {materials[5] && <primitive object={materials[5]} attach="material-5" />}
             </RoundedBox>
 
             {/* Visual Lid Separation (A thin dark line) */}
